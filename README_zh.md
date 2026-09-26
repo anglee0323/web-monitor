@@ -1,13 +1,10 @@
-<p align="right">
+# Web Monitor (网页监控器)
+
+<p>
   <a href="README.md">English</a> | <b>简体中文</b>
 </p>
 
-# Web Monitor (网页监控器)
-
-<p align="left">
-  <img src="assets/icons/icon48.png" width="36" height="36" alt="Web Monitor" style="vertical-align: middle;" />
-  <b>Web Monitor</b> &mdash; 专为极速检测与多通道强力提醒打造的网页变动监控 Chrome 扩展，基于最新 Manifest V3 架构。
-</p>
+专为极速检测与多通道强力提醒打造的网页变动监控 Chrome 扩展，基于最新 Manifest V3 架构。
 
 <p align="left">
   <img src="https://img.shields.io/badge/Manifest-V3-blue?style=flat-square" alt="Manifest V3" />

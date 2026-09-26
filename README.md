@@ -1,13 +1,10 @@
-<p align="right">
+# Web Monitor
+
+<p>
   <b>English</b> | <a href="README_zh.md">简体中文</a>
 </p>
 
-# Web Monitor
-
-<p align="left">
-  <img src="assets/icons/icon48.png" width="36" height="36" alt="Web Monitor" style="vertical-align: middle;" />
-  <b>Web Monitor</b> &mdash; A sleek, high-frequency webpage change detector and alerting extension for Chromium browsers (Chrome, Edge, Arc, Brave), built on Manifest V3.
-</p>
+A sleek, high-frequency webpage change detector and alerting extension for Chromium browsers (Chrome, Edge, Arc, Brave), built on Manifest V3.
 
 <p align="left">
   <img src="https://img.shields.io/badge/Manifest-V3-blue?style=flat-square" alt="Manifest V3" />
