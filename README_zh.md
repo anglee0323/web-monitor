@@ -21,13 +21,7 @@
 ## 界面预览
 
 <p align="center">
-  <img src="assets/screenshots/popup-light.png" width="360" alt="Web Monitor 浅色模式" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/screenshots/popup-dark.png" width="360" alt="Web Monitor 深色模式" />
-</p>
-
-<p align="center">
-  <img src="assets/screenshots/alert-modal.png" width="360" alt="Web Monitor 独立告警弹窗" />
+  <img src="assets/screenshots/preview.png" width="410" alt="Web Monitor 插件主界面" />
 </p>
 
 ---

@@ -21,13 +21,7 @@
 ## Preview
 
 <p align="center">
-  <img src="assets/screenshots/popup-light.png" width="360" alt="Web Monitor Light Mode" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/screenshots/popup-dark.png" width="360" alt="Web Monitor Dark Mode" />
-</p>
-
-<p align="center">
-  <img src="assets/screenshots/alert-modal.png" width="360" alt="Web Monitor Alert Window" />
+  <img src="assets/screenshots/preview.png" width="410" alt="Web Monitor Interface" />
 </p>
 
 ---
