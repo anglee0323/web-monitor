@@ -1,32 +1,49 @@
-# Web Monitor (网页监控器)
+<p align="right">
+  <b>English</b> | <a href="README_zh.md">简体中文</a>
+</p>
 
-A sleek, lightweight, and high-frequency webpage change detector extension for Chromium browsers (Chrome, Edge, Arc, Brave). Built on Manifest V3.
+# Web Monitor
 
-[English](#features) | [中文说明](#功能特性)
+<p align="left">
+  <img src="assets/icons/icon48.png" width="36" height="36" alt="Web Monitor" style="vertical-align: middle;" />
+  <b>Web Monitor</b> &mdash; A sleek, high-frequency webpage change detector and alerting extension for Chromium browsers (Chrome, Edge, Arc, Brave), built on Manifest V3.
+</p>
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Manifest-V3-blue?style=flat-square" alt="Manifest V3" />
+  <img src="https://img.shields.io/badge/License-MIT-emerald?style=flat-square" alt="MIT License" />
+  <img src="https://img.shields.io/badge/Browsers-Chrome%20%7C%20Edge%20%7C%20Arc%20%7C%20Brave-gray?style=flat-square" alt="Chromium Browsers" />
+  <img src="https://img.shields.io/badge/Privacy-100%25%20Local-success?style=flat-square" alt="100% Local" />
+</p>
 
 ---
 
 ## Preview
 
 <p align="center">
-  <img src="assets/screenshots/popup-light.png" width="48%" alt="Web Monitor Light Mode" />
-  <img src="assets/screenshots/popup-dark.png" width="48%" alt="Web Monitor Dark Mode" />
+  <img src="assets/screenshots/popup-light.png" width="360" alt="Web Monitor Light Mode" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/screenshots/popup-dark.png" width="360" alt="Web Monitor Dark Mode" />
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/alert-modal.png" width="360" alt="Web Monitor Alert Window" />
 </p>
 
 ---
 
 ## Features
 
-- **⚡ High-Frequency Monitoring**: Supports ultra-fast check intervals from 5 seconds to 5 minutes.
+- **⚡ High-Frequency Monitoring**: Supports configurable check intervals from ultra-fast 5s / 10s / 30s to 1m / 5m.
 - **🔔 Multi-Channel Alert System**:
   - **Synthesized Audio Alarms**: Built-in Web Audio API tone synthesis (Chime, Radar, Success, Alert) with zero external media files.
-  - **System Notifications**: Native OS-level desktop notification banners.
-  - **Standalone Alert Window**: Centered modal popup for critical, can't-miss alerts with keyboard shortcuts (`Enter` to open, `Esc` to dismiss).
-  - **Auto-Open Webpage**: Automatically launches the updated page in an active tab.
+  - **Native Notifications**: OS-level desktop notification banners with one-click navigation to the target site.
+  - **Standalone Alert Window**: Centered modal popup for critical, can't-miss alerts with keyboard shortcuts (<kbd>Enter</kbd> to open, <kbd>Esc</kbd> to dismiss).
+  - **Auto-Open Webpage**: Automatically launches the updated page in an active tab when changes occur.
 - **🛡️ Error Recovery Tracking**: Detects when pages recover from server errors (HTTP 404/500/502/timeouts) back to `200 OK`.
-- **🧼 Smart Content Normalization & SHA-256 Fingerprinting**: Automatically filters scripts, styles, dynamic timestamps, and session tokens to eliminate false positives.
+- **🧼 Smart Normalization & SHA-256 Fingerprinting**: Automatically strips scripts, styles, dynamic timestamps, and session tokens to eliminate false positives.
 - **🖱️ Instant Quick Actions**:
-  - One-click `Current Tab` button in popup.
+  - One-click `Current Tab` button in popup to auto-fill current page URL and title.
   - Right-click any webpage: `Add current page to Web Monitor`.
   - Keyboard shortcut: <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd>).
 - **🎨 Modern, Minimalist UI**: Clean dark & light mode support, real-time status indicators, and JSON configuration export/import.
@@ -34,7 +51,7 @@ A sleek, lightweight, and high-frequency webpage change detector extension for C
 
 ---
 
-## Installation Guide (安装指南)
+## Installation Guide
 
 ### Prerequisites
 Any Chromium-based browser:
@@ -53,13 +70,13 @@ Any Chromium-based browser:
    - Edge: `edge://extensions`
    - Brave: `brave://extensions`
 3. Toggle on **Developer mode** (top-right corner).
-4. Click **Load unpacked** (加载已解压的扩展程序).
+4. Click **Load unpacked**.
 5. Select the `web-monitor` directory.
 6. Pin the **Web Monitor** icon to your toolbar for quick access.
 
 ---
 
-## How It Works (工作原理)
+## Architecture & How It Works
 
 ```
 Target URL ──► Service Worker Fetch ──► Smart Normalizer ──► Web Crypto SHA-256
@@ -82,24 +99,7 @@ Target URL ──► Service Worker Fetch ──► Smart Normalizer ──► W
 
 ---
 
-## 中文说明
-
-### 功能特性
-- **高频极速监控**：支持 5秒、10秒、30秒、1分钟、5分钟等多种检测频率。
-- **多通道实时告警**：
-  - **合成音频提示**：基于 Web Audio API 原生声学振荡器合成 4 种提示音（门铃、雷达声呐、成功音阶、警报），无需任何外部音频资源。
-  - **桌面系统通知**：系统原生浮窗通知，点击直达目标网页。
-  - **独立居中弹窗**：关键通知以置顶独立小窗口弹出，支持 `Enter` 快捷键打开、`Esc` 一键关闭。
-  - **自动标签页打开**：监测到变动后可选直接新建标签页加载目标页面。
-- **服务恢复检测**：针对网站宕机、404、502 或未上线状态，页面一旦恢复正常访问即刻发送上线通知。
-- **智能降噪与 SHA-256 指纹**：自动清洗页面中的脚本、内联样式、时间戳与动态 Token，杜绝误报。
-- **全局快捷操作**：支持右键上下文菜单一键添加、快捷键快速监控当前页（`Alt+Shift+M` / `Cmd+Shift+M`）。
-- **极简现代 UI**：支持深色/浅色自适应模式，提供配置 JSON 导入导出与一键批量管理。
-- **纯本地运行**：不收集任何用户隐私数据，无任何远程遥测上报。
-
----
-
-## Keyboard Shortcuts (快捷键)
+## Keyboard Shortcuts
 
 | Shortcut | Action |
 | :--- | :--- |
