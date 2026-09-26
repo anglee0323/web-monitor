@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Monitor</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path>
+            <path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path>
+            <circle cx="12" cy="12" r="2"></circle>
+            <path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path>
+            <path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"></path>
+          </svg>
+        </div>
+        <div class="brand-title">
+          <span>Web Monitor</span>
+          <span class="version-tag">v1.0</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-indicator" id="globalStatusPill">
+          <span class="status-dot"></span>
+          <span class="status-text" id="globalStatusText">Idle</span>
+        </div>
+
+        <button class="icon-btn" id="togglePowerBtn" title="Toggle Monitoring">
+          <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+
+        <button class="icon-btn" id="openSettingsBtn" title="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Quick Add Section -->
+    <section class="add-section">
+      <div class="input-card">
+        <div class="input-row">
+          <input type="text" id="urlInput" placeholder="https://example.com/target" class="text-input" spellcheck="false">
+          <button class="btn-subtle" id="useCurrentTabBtn" title="Fill current tab URL">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M2 12h20"></path>
+            </svg>
+            <span>Current Tab</span>
+          </button>
+        </div>
+        <div class="input-row name-row">
+          <input type="text" id="nameInput" placeholder="Label / Name (optional)" class="text-input text-input-secondary">
+          <button class="btn-primary" id="addMonitorBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Monitor</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls Bar -->
+    <div class="list-controls">
+      <div class="counter-badge">
+        <span>Monitors</span>
+        <span class="count-pill" id="monitorCount">0</span>
+      </div>
+      <div class="list-actions">
+        <button class="btn-text" id="checkAllNowBtn" title="Run check for all active items immediately">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Check Now</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Monitor Items List -->
+    <main class="list-container" id="monitorItemsContainer">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </div>
+        <p class="empty-title">No pages monitored</p>
+        <p class="empty-desc">Enter a URL above, click "Current Tab", or right-click any page to start tracking changes.</p>
+      </div>
+      <div class="monitor-items" id="monitorList">
+        <!-- Dynamically rendered -->
+      </div>
+    </main>
+
+    <!-- Settings Drawer / Modal -->
+    <div class="settings-drawer" id="settingsDrawer">
+      <div class="settings-header">
+        <h3>Preferences</h3>
+        <button class="icon-btn-sm" id="closeSettingsBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="settings-body">
+        <!-- Check Frequency -->
+        <div class="setting-group">
+          <label class="setting-label">Check Frequency</label>
+          <div class="segmented-control" id="intervalSegmented">
+            <button type="button" class="segment-btn" data-val="5">5s</button>
+            <button type="button" class="segment-btn active" data-val="10">10s</button>
+            <button type="button" class="segment-btn" data-val="30">30s</button>
+            <button type="button" class="segment-btn" data-val="60">1m</button>
+            <button type="button" class="segment-btn" data-val="300">5m</button>
+          </div>
+          <span class="setting-hint">Sub-minute rates run via background offscreen ticker.</span>
+        </div>
+
+        <!-- Alert Sound -->
+        <div class="setting-group">
+          <div class="toggle-row">
+            <label for="soundEnabled" class="setting-label">Sound Alert</label>
+            <input type="checkbox" id="soundEnabled" class="ios-switch" checked>
+          </div>
+
+          <div class="sub-settings" id="soundSubSettings">
+            <div class="setting-row">
+              <span class="sub-label">Tone</span>
+              <div class="inline-controls">
+                <select id="soundType" class="select-input">
+                  <option value="chime" selected>Chime (Ding-Dong)</option>
+                  <option value="radar">Radar Sonar</option>
+                  <option value="success">Success Arpeggio</option>
+                  <option value="alert">Warning Alert</option>
+                  <option value="beep">Simple Beep</option>
+                </select>
+                <button type="button" class="btn-subtle btn-xs" id="testSoundBtn" title="Test sound">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Test</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="setting-row">
+              <span class="sub-label">Duration</span>
+              <select id="soundDuration" class="select-input">
+                <option value="1">1 second</option>
+                <option value="3" selected>3 seconds</option>
+                <option value="5">5 seconds</option>
+                <option value="10">10 seconds</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Notification -->
+        <div class="setting-group">
+          <div class="toggle-row">
+            <div>
+              <label for="notificationEnabled" class="setting-label">System Notifications</label>
+              <div class="setting-hint">Native desktop notification popup</div>
+            </div>
+            <input type="checkbox" id="notificationEnabled" class="ios-switch" checked>
+          </div>
+        </div>
+
+        <!-- Alert Window -->
+        <div class="setting-group">
+          <div class="toggle-row">
+            <div>
+              <label for="popupAlert" class="setting-label">Standalone Alert Window</label>
+              <div class="setting-hint">Brings a focused popup window to front</div>
+            </div>
+            <input type="checkbox" id="popupAlert" class="ios-switch">
+          </div>
+        </div>
+
+        <!-- Auto Open Tab -->
+        <div class="setting-group">
+          <div class="toggle-row">
+            <div>
+              <label for="autoOpen" class="setting-label">Auto-open Webpage</label>
+              <div class="setting-hint">Automatically open changed URL in active tab</div>
+            </div>
+            <input type="checkbox" id="autoOpen" class="ios-switch">
+          </div>
+        </div>
+
+        <!-- Backup & Clear -->
+        <div class="setting-group backup-group">
+          <div class="backup-actions">
+            <button type="button" class="btn-subtle btn-sm" id="exportDataBtn">Export Config</button>
+            <button type="button" class="btn-subtle btn-sm" id="importDataBtn">Import Config</button>
+            <input type="file" id="importFileInput" accept=".json" style="display:none;">
+          </div>
+          <button type="button" class="btn-danger-ghost btn-sm" id="clearAllBtn">Clear All Monitors</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span class="shortcut-tip">Tip: Press <kbd>Alt+Shift+M</kbd> to add current tab</span>
+      <a href="https://github.com/anglee0323/web-monitor" target="_blank" class="footer-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

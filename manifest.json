@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "Web Monitor - Webpage Change Detector",
+  "version": "1.0.0",
+  "description": "Real-time webpage change monitoring extension with high frequency checks and multi-channel alerts.",
+  "permissions": [
+    "notifications",
+    "alarms",
+    "storage",
+    "tabs",
+    "contextMenus",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "commands": {
+    "add-current-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M",
+        "mac": "Command+Shift+M"
+      },
+      "description": "Add current page to Web Monitor"
+    },
+    "toggle-monitoring": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Toggle monitoring start / pause"
+    }
+  }
+}
